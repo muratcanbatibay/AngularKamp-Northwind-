@@ -1,3 +1,4 @@
+import { CartService } from './../../services/cart.service';
 
 import { AppComponent } from './../../app.component';
 import { ProductService } from './../../services/product.service';
@@ -18,8 +19,11 @@ export class ProductComponent implements OnInit {
   products: Product[] = [];
   dataLoaded=false;
   filterText="";
-  constructor(private ProductService:ProductService,
-    private toastrService:ToastrService , private activatedRoute:ActivatedRoute) { }
+  constructor(
+    private ProductService:ProductService,
+    private toastrService:ToastrService,
+    private cartService:CartService,
+    private activatedRoute:ActivatedRoute) { }
 
   ngOnInit(): void {
 
@@ -49,8 +53,9 @@ export class ProductComponent implements OnInit {
     }
     addToCart(product:Product){
         this.toastrService.success("Added to cart"+product.productName)
-
+        this.cartService.addToCart(product);
     }
+    
     
     
 
